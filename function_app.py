@@ -29,23 +29,23 @@ def test_function(req: func.HttpRequest) -> func.HttpResponse:
     return func.HttpResponse(message, status_code=200)
 
 
-# @app.function_name("firstblobfunction")
-# @app.blob_trigger(
-#     arg_name="myblob", path="newcontainer/People.csv", connection="AzureWebJobsStorage"
-# )
-# def test_function(myblob: func.InputStream):
-#     logging.info(
-#         f"Python function triggered, will be stored in people.csv {myblob.name}"
-#     )
+@app.function_name("firstblobfunction")
+@app.blob_trigger(
+    arg_name="myblob", path="newcontainer/People.csv", connection="AzureWebJobsStorage"
+)
+def test_function(myblob: func.InputStream):
+    logging.info(
+        f"Python function triggered, will be stored in people.csv {myblob.name}"
+    )
 
 
-# @app.function_name("BlobRead")
-# @app.blob_trigger(
-#     arg_name="readfile",
-#     path="newcontainer/People2.csv",
-#     connection="AzureWebJobsStorage",
-# )
-# def main(readfile: func.InputStream):
-#     reader = csv.reader(codecs.iterdecode(readfile, "utf-8"))
-#     for line in reader:
-#         print(line)
+@app.function_name("BlobRead")
+@app.blob_trigger(
+    arg_name="readfile",
+    path="newcontainer/People2.csv",
+    connection="AzureWebJobsStorage",
+)
+def main(readfile: func.InputStream):
+    reader = csv.reader(codecs.iterdecode(readfile, "utf-8"))
+    for line in reader:
+        print(line)
