@@ -9,4 +9,4 @@ glob2
 requests
 seaborn
 matplotlib
-
+Office365-REST-Python-Client
