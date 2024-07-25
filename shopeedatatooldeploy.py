@@ -8,72 +8,72 @@ import requests
 
 from msal import ConfidentialClientApplication
 
-# Authentication to the app
+# # Authentication to the app
 
-# Environment variables
-client_id = os.getenv("CLIENT_ID")
-client_secret = os.getenv("CLIENT_SECRET")
-tenant_id = os.getenv("TENANT_ID")
-site_id = os.getenv("SITE_ID")  # The SharePoint site ID
-drive_id = os.getenv("DRIVE_ID")  # The document library ID (Drive ID)
-folder_order_id = os.getenv(
-    "FOLDER_ID"
-)  # The Order All folder ID within the document library
-folder_income_id = os.getenv(
-    "FOLDER_ID"
-)  # The Income All folder ID within the document library
+# # Environment variables
+# client_id = os.getenv("CLIENT_ID")
+# client_secret = os.getenv("CLIENT_SECRET")
+# tenant_id = os.getenv("TENANT_ID")
+# site_id = os.getenv("SITE_ID")  # The SharePoint site ID
+# drive_id = os.getenv("DRIVE_ID")  # The document library ID (Drive ID)
+# folder_order_id = os.getenv(
+#     "FOLDER_ID"
+# )  # The Order All folder ID within the document library
+# folder_income_id = os.getenv(
+#     "FOLDER_ID"
+# )  # The Income All folder ID within the document library
 
-# Authenticate with Microsoft Graph
-authority_url = f"https://login.microsoftonline.com/{tenant_id}"
-scopes = ["https://graph.microsoft.com/.default"]
+# # Authenticate with Microsoft Graph
+# authority_url = f"https://login.microsoftonline.com/{tenant_id}"
+# scopes = ["https://graph.microsoft.com/.default"]
 
-app = ConfidentialClientApplication(
-    client_id,
-    authority=authority_url,
-    client_credential=client_secret,
-)
+# app = ConfidentialClientApplication(
+#     client_id,
+#     authority=authority_url,
+#     client_credential=client_secret,
+# )
 
-result = app.acquire_token_for_client(scopes=scopes)
+# result = app.acquire_token_for_client(scopes=scopes)
 
-if "access_token" in result:
-    access_token = result["access_token"]
-else:
-    raise Exception("Could not acquire access token")
+# if "access_token" in result:
+#     access_token = result["access_token"]
+# else:
+#     raise Exception("Could not acquire access token")
 
-headers = {
-    "Authorization": f"Bearer {access_token}",
-    "Content-Type": "application/json",
-}
-
-
-# Function to list all order files in a SharePoint folder
-def sharepoint_list_order_files():
-    url = f"https://graph.microsoft.com/v1.0/sites/{site_id}/drives/{drive_id}/items/{folder_order_id}/children"
-    response = requests.get(url, headers=headers)
-    response.raise_for_status()
-    return response.json().get("value", [])
+# headers = {
+#     "Authorization": f"Bearer {access_token}",
+#     "Content-Type": "application/json",
+# }
 
 
-def sharepoint_list_income_files():
-    url = f"https://graph.microsoft.com/v1.0/sites/{site_id}/drives/{drive_id}/items/{folder_income_id}/children"
-    response = requests.get(url, headers=headers)
-    response.raise_for_status()
-    return response.json().get("value", [])
+# # Function to list all order files in a SharePoint folder
+# def sharepoint_list_order_files():
+#     url = f"https://graph.microsoft.com/v1.0/sites/{site_id}/drives/{drive_id}/items/{folder_order_id}/children"
+#     response = requests.get(url, headers=headers)
+#     response.raise_for_status()
+#     return response.json().get("value", [])
 
 
-# Function to read a file from SharePoint into a DataFrame
-def read_file_from_sharepoint(file_id):
-    download_url = f"https://graph.microsoft.com/v1.0/sites/{site_id}/drives/{drive_id}/items/{file_id}/content"
-    response = requests.get(download_url, headers=headers)
-    response.raise_for_status()
-    file_content = response.content
-    df = pd.read_excel(io.BytesIO(file_content))
-    return df
+# def sharepoint_list_income_files():
+#     url = f"https://graph.microsoft.com/v1.0/sites/{site_id}/drives/{drive_id}/items/{folder_income_id}/children"
+#     response = requests.get(url, headers=headers)
+#     response.raise_for_status()
+#     return response.json().get("value", [])
 
 
-if __name__ == "__main__":
-    result_df = main_function()
-    print(result_df.head())
+# # Function to read a file from SharePoint into a DataFrame
+# def read_file_from_sharepoint(file_id):
+#     download_url = f"https://graph.microsoft.com/v1.0/sites/{site_id}/drives/{drive_id}/items/{file_id}/content"
+#     response = requests.get(download_url, headers=headers)
+#     response.raise_for_status()
+#     file_content = response.content
+#     df = pd.read_excel(io.BytesIO(file_content))
+#     return df
+
+
+# if __name__ == "__main__":
+#     result_df = main_function()
+#     print(result_df.head())
 
 
 # # Ganti dengan path folder yang sesuai
