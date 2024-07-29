@@ -11,14 +11,14 @@ app.register_blueprint(bp)
 
 
 @app.function_name("FirstHTTPFunction")
-@app.route(route="myroute", auth_level=func.AuthLevel.ANONYMOUS)
+@app.route(route="myroute")
 def test_function(req: func.HttpRequest) -> func.HttpResponse:
     logging.info("a request ongoing")
     return func.HttpResponse("it works", status_code=200)
 
 
 @app.function_name("SecondHTTPFunction")
-@app.route(route="newroute", auth_level=func.AuthLevel.ANONYMOUS)
+@app.route(route="newroute")
 def test_function(req: func.HttpRequest) -> func.HttpResponse:
     logging.info("Second request ongoing")
     name = req.params.get("name")
