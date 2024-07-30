@@ -3,10 +3,13 @@
 # Manually managing azure-functions-worker may cause unexpected issues
 
 azure-functions
-pandas
-openpyxl
-glob2
-requests
-seaborn
-matplotlib
-Office365-REST-Python-Client
+pyodbc
+azure-identity
+azure-keyvault-secrets
+# pandas
+# openpyxl
+# glob2
+# requests
+# seaborn
+# matplotlib
+# Office365-REST-Python-Client

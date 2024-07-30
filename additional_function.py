@@ -6,7 +6,7 @@ bp = func.Blueprint()
 
 
 @bp.function_name("AdditionalHTTPFunction")
-@bp.route(route="brandnewroute")
+@bp.route(route="brandnewroute", auth_level=func.AuthLevel.FUNCTION)
 def test_function(req: func.HttpRequest) -> func.HttpResponse:
     logging.info("Python HTTP processed a function")
     return func.HttpResponse("this works", status_code=200)
